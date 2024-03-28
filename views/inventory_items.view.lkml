@@ -19,6 +19,7 @@ view: inventory_items {
 
   dimension: cost {
     type: number
+    value_format: "\"€\"0"
     sql: ${TABLE}.cost ;;
   }
 
@@ -28,9 +29,11 @@ view: inventory_items {
 
   measure: total_cost {
     type: sum
+    value_format: "\"€\"0"
     sql: ${cost} ;;  }
   measure: average_cost {
     type: average
+    value_format_name: eur
     sql: ${cost} ;;  }
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
@@ -106,6 +109,17 @@ view: inventory_items {
       ELSE NULL
     END ;;
     value_format: "#,##0"
+  }
+
+  measure: total_product_retail_price {
+    type: sum
+    value_format: "€#,##0.00"
+    sql: ${product_retail_price} ;;
+  }
+  measure: average_product_retail_price {
+    type: average
+    value_format: "€0.00"
+    sql: ${product_retail_price} ;;
   }
 
 #parameters
